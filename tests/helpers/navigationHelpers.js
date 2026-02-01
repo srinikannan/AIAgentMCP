@@ -1,29 +1,20 @@
 /**
- * Navigation Helper Functions
- * Reusable methods for common navigation actions across all tests
+ * Navigation Helper Functions - Reusable across all tests
  */
 
-/**
- * Navigate to Automation Exercise home page
- */
 async function navigateToHomePage(page) {
   await page.goto('https://automationexercise.com/');
   console.log('Navigated to Automation Exercise home page');
 }
 
-/**
- * Click on Test Cases link next to Signup/Login
- */
 async function clickTestCasesLink(page) {
   try {
     const testCasesLink = page.locator('a:has-text("Test Cases")').first();
     await testCasesLink.waitFor({ timeout: 10000 });
     await testCasesLink.click();
     console.log('Clicked Test Cases link');
-    
     await page.waitForURL('**/test_cases**', { timeout: 10000 });
     console.log('Successfully navigated to Test Cases page');
-    
     return true;
   } catch (err) {
     console.error('Failed to click Test Cases link:', err.message);
@@ -31,14 +22,10 @@ async function clickTestCasesLink(page) {
   }
 }
 
-/**
- * Verify we're on the Test Cases page
- */
 async function verifyTestCasesPage(page) {
   try {
     const currentURL = page.url();
     console.log('Current URL:', currentURL);
-    
     if (currentURL.includes('test_cases')) {
       console.log('✓ Confirmed: We are on the Test Cases page');
       return true;
@@ -52,19 +39,14 @@ async function verifyTestCasesPage(page) {
   }
 }
 
-/**
- * Click on Signup/Login link
- */
 async function clickSignupLoginLink(page) {
   try {
     const signupLink = page.locator('a:has-text("Signup / Login")').first();
     await signupLink.waitFor({ timeout: 10000 });
     await signupLink.click();
     console.log('Clicked Signup/Login link');
-    
     await page.waitForURL('**/login**', { timeout: 10000 });
     console.log('Successfully navigated to Signup/Login page');
-    
     return true;
   } catch (err) {
     console.error('Failed to click Signup/Login link:', err.message);
@@ -72,9 +54,6 @@ async function clickSignupLoginLink(page) {
   }
 }
 
-/**
- * Close the browser/page
- */
 async function closeBrowser(page) {
   try {
     if (page && !page.isClosed()) {
@@ -86,9 +65,6 @@ async function closeBrowser(page) {
   }
 }
 
-/**
- * Wait for page to load with timeout
- */
 async function waitForPageLoad(page, timeout = 5000) {
   try {
     await page.waitForLoadState('networkidle', { timeout });
